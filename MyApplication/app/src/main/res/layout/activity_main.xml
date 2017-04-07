@@ -8,7 +8,7 @@
 
     <TextView
         android:id="@+id/your_previous_answer"
-        android:layout_width="350dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sample text"
         android:textSize="15sp"
@@ -16,9 +16,9 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_bias="0.737"
-        app:layout_constraintVertical_bias="0.827"
-        />
+        app:layout_constraintHorizontal_bias="0.09"
+        app:layout_constraintVertical_bias="0.955"
+        android:layout_marginRight="0dp" />
 
     <TextView
         android:id="@+id/textView"
@@ -50,19 +50,6 @@
         />
 
     <Button
-        android:id="@+id/next_question"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="next question"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_bias="0.109"
-        app:layout_constraintVertical_bias="0.272"
-        android:onClick="ClickingNextQuestion"/>
-
-    <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -79,7 +66,7 @@
         android:id="@+id/see_favorites"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="ClickingSubmitAnswer"
+        android:onClick="seeingFavorites"
         android:text="see favorites"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.941"

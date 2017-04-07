@@ -1,5 +1,6 @@
 package com.example.ash.myapplication;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -55,14 +56,18 @@ public class MainActivity extends AppCompatActivity {
         answers.add(editText_answer.getText().toString());
         previousAnswer.setText(answers.get(increment_answer).toString());
         editText_answer.setText("");
+        questionGen.setText(questions.get(increment_question));
+        increment_question ++;
         increment_answer ++;
 
 
     }
 
-    public void ClickingNextQuestion(View view) {
-        questionGen.setText(questions.get(increment_question));
-        increment_question ++;
 
+
+    public void seeingFavorites(View view) {
+        Intent intent = new Intent(this, Main2Activity.class);
+        startActivity(intent);
+        intent.putStringArrayListExtra("SendingArrayOfFavorites", answers);
     }
 }
