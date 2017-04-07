@@ -44,14 +44,14 @@ public class Main2Activity extends AppCompatActivity {
 
         set_for_answers.addAll(answers_received);
         editor_answers.putStringSet("list_of_answesr", set_for_answers);
-        editor_answers.apply();
+
+        editor_answers.commit();
 
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        if (prefs.getBoolean("MyPref", true)) {
+        SharedPreferences pref_answers = PreferenceManager.getDefaultSharedPreferences(this);
+        if (pref_answers.getBoolean("MyPref_answers", true)) {
 
             new_set_shared_prefs = pref_answers.getStringSet("list_of_answesr", null);
-            answers_received.addAll(new_set_shared_prefs);
 
             arrayAdapter_sharedPreferences = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1, answers_received);
 
