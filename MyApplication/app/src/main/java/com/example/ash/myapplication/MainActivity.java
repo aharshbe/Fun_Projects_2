@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -16,6 +17,9 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+
+import static android.R.attr.data;
+import static android.R.attr.duration;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -54,8 +58,13 @@ public class MainActivity extends AppCompatActivity {
         answers = new ArrayList<>();
 
 
+        if (answers.contains("harry potter")){
+
+            Toast toast = Toast.makeText(this, "hello", Toast.LENGTH_LONG);
+            toast.show();
 
 
+        }
 
 
     }
