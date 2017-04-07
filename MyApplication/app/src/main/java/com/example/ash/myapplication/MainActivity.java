@@ -1,6 +1,7 @@
 package com.example.ash.myapplication;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +14,8 @@ import org.w3c.dom.Text;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,6 +23,9 @@ public class MainActivity extends AppCompatActivity {
     EditText editText_answer;
     ArrayList<String> questions, answers ;
     int increment_question, increment_answer;
+    SharedPreferences pref_answers;
+    SharedPreferences.Editor editor_answers;
+    Set<String> set_for_answers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +35,10 @@ public class MainActivity extends AppCompatActivity {
         questionGen = (TextView) findViewById(R.id.textView);
         previousAnswer = (TextView) findViewById(R.id.your_previous_answer);
         editText_answer = (EditText) findViewById(R.id.editText);
+        set_for_answers = new HashSet<String>();
+
+        pref_answers = getApplicationContext().getSharedPreferences("MyPref_answers", MODE_PRIVATE);
+        editor_answers = pref_answers.edit();
 
 
         questionGen.setText("Would you like to play the Questions Game?");
@@ -67,7 +77,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void seeingFavorites(View view) {
         Intent intent = new Intent(this, Main2Activity.class);
+        intent.putStringArrayListExtra("sending", answers);
+        set_for_answers.addAll(answers);
+        editor_answers.putStringSet("list_of_answesr", set_for_answers);
+        editor_answers.apply();
         startActivity(intent);
-        intent.putStringArrayListExtra("SendingArrayOfFavorites", answers);
+
     }
 }
