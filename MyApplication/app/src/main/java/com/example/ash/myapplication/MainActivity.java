@@ -5,6 +5,7 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextView questionGen, previousAnswer;
     EditText editText_answer;
+    String their_favroite_color;
     ArrayList<String> questions, answers;
     int increment_question, increment_answer;
     SharedPreferences prefs_answers;
@@ -93,8 +95,13 @@ public class MainActivity extends AppCompatActivity {
         questions.add("What's your favorite computer game?");
         questions.add("What's your favorite book series?");
         questions.add("What's your favorite time of day?");
+        questions.add("What's your favorite person's name?");
+        questions.add("Do you like your mom or your dad more?");
+        questions.add("Are you in a relationship?");
+        questions.add("Do you like your job?");
+        questions.add("What type of food do you really hate?");
 
-        questionGen.setText(questions.get(increment_question));
+        questionGen.setText("Type go to start ...");
 
         answers = new ArrayList<>();
 
@@ -130,6 +137,17 @@ public class MainActivity extends AppCompatActivity {
             increment_answer++;
 
 
+
+                if (answers.contains("green")){questionGen.setTextColor(Color.GREEN);answers.remove("green");answers.add("green ");};
+                if (answers.contains("red")){questionGen.setTextColor(Color.RED);answers.remove("red");answers.add("red ");};
+                if (answers.contains("blue")){questionGen.setTextColor(Color.BLUE);answers.remove("blue");answers.add("blue ");};
+                if (answers.contains("black")){questionGen.setTextColor(Color.BLACK);answers.remove("black");answers.add("black ");};
+
+
+
+
+
+
             if (answers.contains("harry potter")) {
 
                 answers.remove("harry potter");
@@ -157,6 +175,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void seeingFavorites(View view) {
+        answers.remove("go");
         Intent intent = new Intent(this, Main2Activity.class);
         intent.putStringArrayListExtra("sending", answers);
         set_for_answers.addAll(answers);
