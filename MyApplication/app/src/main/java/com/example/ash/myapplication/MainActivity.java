@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     TextView questionGen, previousAnswer;
     EditText editText_answer;
     ArrayList<String> questions, answers ;
-    int increment_question, increment_answer, yes_incrementor;
+    int increment_question, increment_answer;
     SharedPreferences pref_answers;
     SharedPreferences.Editor editor_answers;
     Set<String> set_for_answers;
@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
                         Uri uri = Uri.parse("https://media.giphy.com/media/GyMQXGx3WMm6Q/giphy.gif");
                         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                         startActivity(intent);
+                        finish();
                         System.exit(0);
                     }
                 });
@@ -98,18 +99,34 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
+
     public void ClickingSubmitAnswer(View view) {
-        answers.add(editText_answer.getText().toString());
-        previousAnswer.setText(answers.get(increment_answer).toString());
-        editText_answer.setText("");
-        questionGen.setText(questions.get(increment_question));
-        increment_question ++;
-        increment_answer ++;
+
+        if (editText_answer.getText().toString().equals("")){
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+            builder1.setMessage("You must enter an answer");
+            builder1.setCancelable(true);
+
+            builder1.setPositiveButton(
+                    "Cool",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert11 = builder1.create();
+            alert11.show();
+
+        } else {
 
 
-
-
-
+            answers.add(editText_answer.getText().toString());
+            previousAnswer.setText(answers.get(increment_answer).toString());
+            editText_answer.setText("");
+            questionGen.setText(questions.get(increment_question));
+            increment_question++;
+            increment_answer++;
 
 
             if (answers.contains("harry potter")) {
@@ -133,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
 
 
             }
+        }
 
 
 
