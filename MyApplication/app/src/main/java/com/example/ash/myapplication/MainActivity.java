@@ -1,7 +1,12 @@
 package com.example.ash.myapplication;
 
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     TextView questionGen, previousAnswer;
     EditText editText_answer;
     ArrayList<String> questions, answers ;
-    int increment_question, increment_answer;
+    int increment_question, increment_answer, yes_incrementor;
     SharedPreferences pref_answers;
     SharedPreferences.Editor editor_answers;
     Set<String> set_for_answers;
@@ -44,9 +49,38 @@ public class MainActivity extends AppCompatActivity {
         pref_answers = getApplicationContext().getSharedPreferences("MyPref_answers", MODE_PRIVATE);
         editor_answers = pref_answers.edit();
 
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+        builder1.setMessage("Would you like to play the Questions Game?");
+        builder1.setCancelable(true);
 
-        questionGen.setText("Would you like to play the Questions Game?");
+        builder1.setPositiveButton(
+                "Yes",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        questionGen.setText(questions.get(increment_question));
+                        increment_question++;
+                    }
+                });
 
+        builder1.setNegativeButton(
+                "No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Uri uri = Uri.parse("https://media.giphy.com/media/GyMQXGx3WMm6Q/giphy.gif");
+                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                        startActivity(intent);
+                        System.exit(0);
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+
+
+
+
+        questionGen.setText("Hello, Welcome to the Questions Game! :)");
 
         questions = new ArrayList<>();
         questions.add("What's your favorite color?");
@@ -58,17 +92,10 @@ public class MainActivity extends AppCompatActivity {
         answers = new ArrayList<>();
 
 
-        if (answers.contains("harry potter")){
 
-            Toast toast = Toast.makeText(this, "hello", Toast.LENGTH_LONG);
-            toast.show();
-
-
-        }
 
 
     }
-
 
 
     public void ClickingSubmitAnswer(View view) {
@@ -80,9 +107,38 @@ public class MainActivity extends AppCompatActivity {
         increment_answer ++;
 
 
+
+
+
+
+
+            if (answers.contains("harry potter")) {
+
+                answers.remove("harry potter");
+                answers.add("You're a wizard harry!");
+
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+                builder1.setMessage("You're a wizard harry");
+                builder1.setCancelable(true);
+
+                builder1.setPositiveButton(
+                        "Cool",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alert11 = builder1.create();
+                alert11.show();
+
+
+            }
+
+
+
+
+
     }
-
-
 
     public void seeingFavorites(View view) {
         Intent intent = new Intent(this, Main2Activity.class);
@@ -93,4 +149,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
+
+
+
 }
