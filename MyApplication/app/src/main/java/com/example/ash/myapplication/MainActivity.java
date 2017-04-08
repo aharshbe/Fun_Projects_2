@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextView questionGen, previousAnswer;
     EditText editText_answer;
-    ArrayList<String> questions, answers ;
+    ArrayList<String> questions, answers;
     int increment_question, increment_answer;
     SharedPreferences prefs_answers;
     SharedPreferences.Editor editor_answers;
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         boolean firstrun = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("firstrun", true);
-        if (firstrun){
+        if (firstrun) {
             AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
             builder1.setMessage("Would you like to play the Questions Game?");
             builder1.setCancelable(true);
@@ -87,10 +87,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-
-
-        questionGen.setText("Hello, Welcome to the Questions Game! :)");
-
         questions = new ArrayList<>();
         questions.add("What's your favorite color?");
         questions.add("What's your favorite book?");
@@ -98,17 +94,17 @@ public class MainActivity extends AppCompatActivity {
         questions.add("What's your favorite book series?");
         questions.add("What's your favorite time of day?");
 
+        questionGen.setText(questions.get(increment_question));
+
         answers = new ArrayList<>();
 
 
     }
 
 
-
-
     public void ClickingSubmitAnswer(View view) {
 
-        if (editText_answer.getText().toString().equals("")){
+        if (editText_answer.getText().toString().equals("")) {
             AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
             builder1.setMessage("You must enter an answer, sorry bout it. ;)");
             builder1.setCancelable(true);
@@ -158,9 +154,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-
-
-
     }
 
     public void seeingFavorites(View view) {
@@ -172,7 +165,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
-
 
 
 }
