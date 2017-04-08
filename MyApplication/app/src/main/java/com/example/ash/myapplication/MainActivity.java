@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     EditText editText_answer;
     ArrayList<String> questions, answers ;
     int increment_question, increment_answer;
-    SharedPreferences pref_answers;
+    SharedPreferences prefs_answers;
     SharedPreferences.Editor editor_answers;
     Set<String> set_for_answers;
 
@@ -46,37 +46,45 @@ public class MainActivity extends AppCompatActivity {
         editText_answer = (EditText) findViewById(R.id.editText);
         set_for_answers = new HashSet<String>();
 
-        pref_answers = getApplicationContext().getSharedPreferences("MyPref_answers", MODE_PRIVATE);
-        editor_answers = pref_answers.edit();
+//        prefs_answers = getApplicationContext().getSharedPreferences("MyPref_answers", MODE_PRIVATE);
+//        editor_answers = prefs_answers.edit();
 
-        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
-        builder1.setMessage("Would you like to play the Questions Game?");
-        builder1.setCancelable(true);
 
-        builder1.setPositiveButton(
-                "Yes",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                        questionGen.setText(questions.get(increment_question));
-                        increment_question++;
-                    }
-                });
+        boolean firstrun = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("firstrun", true);
+        if (firstrun){
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+            builder1.setMessage("Would you like to play the Questions Game?");
+            builder1.setCancelable(true);
 
-        builder1.setNegativeButton(
-                "No",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        Uri uri = Uri.parse("https://media.giphy.com/media/GyMQXGx3WMm6Q/giphy.gif");
-                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                        startActivity(intent);
-                        finish();
-                        System.exit(0);
-                    }
-                });
+            builder1.setPositiveButton(
+                    "Yes",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                            questionGen.setText(questions.get(increment_question));
+                            increment_question++;
+                        }
+                    });
 
-        AlertDialog alert11 = builder1.create();
-        alert11.show();
+            builder1.setNegativeButton(
+                    "No",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            Uri uri = Uri.parse("https://media.giphy.com/media/GyMQXGx3WMm6Q/giphy.gif");
+                            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                            startActivity(intent);
+                            finish();
+                            System.exit(0);
+                        }
+                    });
+
+            AlertDialog alert11 = builder1.create();
+            alert11.show();
+            getSharedPreferences("PREFERENCE", MODE_PRIVATE)
+                    .edit()
+                    .putBoolean("firstrun", false)
+                    .commit();
+        }
 
 
 
@@ -93,9 +101,6 @@ public class MainActivity extends AppCompatActivity {
         answers = new ArrayList<>();
 
 
-
-
-
     }
 
 
@@ -105,11 +110,11 @@ public class MainActivity extends AppCompatActivity {
 
         if (editText_answer.getText().toString().equals("")){
             AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
-            builder1.setMessage("You must enter an answer");
+            builder1.setMessage("You must enter an answer, sorry bout it. ;)");
             builder1.setCancelable(true);
 
             builder1.setPositiveButton(
-                    "Cool",
+                    "Okay",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             dialog.cancel();
@@ -162,8 +167,8 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, Main2Activity.class);
         intent.putStringArrayListExtra("sending", answers);
         set_for_answers.addAll(answers);
-        editor_answers.putStringSet("list_of_answesr", set_for_answers);
-        editor_answers.apply();
+//        editor_answers.putStringSet("list_of_answesr", set_for_answers);
+//        editor_answers.apply();
         startActivity(intent);
 
     }
